@@ -1,6 +1,7 @@
 /**
- * An enumeration for the types of colors a card can be, returing
- * the color when asked, and null for the color of a wild card
+ * An enumeration for the types of colors a card can be, which
+ * will provide the color for the renderer to look up when drawing
+ * a card.
  *
  * @author Natalie Schneider
  * @version Final Project
@@ -16,7 +17,7 @@ public enum CardColor {
     YELLOW (Color.YELLOW),
     GREEN(Color.GREEN),
     BLUE(Color.BLUE),
-    WILD(null);
+    WILD(Color.BLACK);
 
     Color color;
 
