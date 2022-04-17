@@ -1,3 +1,10 @@
+/**
+ * A class that handles basic player logic.
+ *
+ * @author Natalie Schneider
+ * @version Final Project
+ * @bugs None
+ */
 package PlayerLogic;
 
 import CardLogic.Card;

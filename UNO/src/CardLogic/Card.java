@@ -1,3 +1,12 @@
+/**
+ * A class that handles basic card logic, such as determining if a penalty is
+ * active or not, determining the effective color of a wild card, and providing
+ * a way to test if a card is playable on the current card
+ *
+ * @author Natalie Schneider
+ * @version Final Project
+ * @bugs None
+ */
 package CardLogic;
 
 public class Card implements Comparable{
