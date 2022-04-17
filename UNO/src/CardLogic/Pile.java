@@ -1,4 +1,4 @@
-package GameLogic;
+package CardLogic;
 
 public class Pile {
 }

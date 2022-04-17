@@ -1,4 +1,5 @@
 package PlayerLogic;
 
-public class Player {
+public class Player{
+
 }
