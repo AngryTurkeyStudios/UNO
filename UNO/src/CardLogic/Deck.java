@@ -54,13 +54,8 @@ public class Deck {
      * Deals a card to the player passed in by poping it from the stack
      * @param player the player to deal a card to
      */
-    public boolean deal(Player player){
-        Card dealt = cards.peek();
-        if(player.drawCard(dealt) == dealt){
-            cards.pop();
-            return true;
-        }
-        return false;
+    public Card deal(Player player){
+        return player.drawCard(cards.pop());
     }
 
     /**
