@@ -82,4 +82,12 @@ public class Pile {
         return cards.peek();
     }
 
+    /**
+     * Returns the current size of the pile
+     * @return the size of the pile
+     */
+    public int pileSize(){
+        return cards.size();
+    }
+
 }

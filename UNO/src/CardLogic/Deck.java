@@ -9,6 +9,7 @@ package CardLogic;
 
 import PlayerLogic.Player;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -23,10 +24,14 @@ public class Deck {
     }
 
     /**
-     * Resets the deck to a new blank deck
+     * initialized the pile with the top card of the deck
+     * @return the initialized pile
      */
-    public void reset(){
-        initializeDeck();
+    public Pile initializePile(){
+        if(!cards.isEmpty()) {
+            return new Pile(cards.pop());
+        }
+        return null;
     }
 
     /**
@@ -55,7 +60,10 @@ public class Deck {
      * @param player the player to deal a card to
      */
     public Card deal(Player player){
-        return player.drawCard(cards.pop());
+        if(!cards.isEmpty()) {
+            return player.drawCard(cards.pop());
+        }
+        return null;
     }
 
     /**
@@ -64,6 +72,36 @@ public class Deck {
      */
     public boolean isEmpty(){
         return cards.isEmpty();
+    }
+
+    /**
+     * Shuffles the unimportant cards in the pile into the deck
+     * @param pile the pile to shuffle into from
+     * @return true when successful
+     */
+    public boolean shuffleInto(Pile pile){
+        ArrayList<Card> recycled = pile.recycleCards();
+        if(recycled != null && recycled.size() >0) {
+            cards.addAll(recycled);
+            Collections.shuffle(cards);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Resets the deck to a new blank deck
+     */
+    public void reset(){
+        initializeDeck();
+    }
+
+    /**
+     * Returns the size of the deck currently
+     * @return the size of the deck currently
+     */
+    public int deckSize(){
+        return cards.size();
     }
 
     /**

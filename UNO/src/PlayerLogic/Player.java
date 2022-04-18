@@ -57,6 +57,7 @@ public class Player{
                 if(pile.addCard(playedCard)){
                     return playedCard;
                 }
+                cards.add(playedCard);
             }
             return null;
         }
@@ -66,9 +67,13 @@ public class Player{
          * @param card the card to play
          * @return the card that was played if it was able to be played
          */
-        public Card playCard(Card card){
-            if(cards.remove(card))
-                return card;
+        public Card playCard(Card card, Pile pile){
+            if(cards.remove(card)){
+                if(pile.addCard(card)){
+                    return card;
+                }
+                cards.add(card);
+            }
             return null;
         }
 
@@ -79,6 +84,14 @@ public class Player{
         public boolean addCard(Card card){
             cards.add(card);
             return true;
+        }
+
+        /**
+         * the size of the hand
+         * @return the size of the hand
+         */
+        public int size(){
+            return cards.size();
         }
     }
 
@@ -93,16 +106,24 @@ public class Player{
      * TODO Implement player interface: currently acts as AI
      * @return
      */
-    public Card getMove(Deck deck, Pile pile){
+    public Card makePlay(Deck deck, Pile pile){
         int[] moves = hand.checkValidPlays(pile);
         if(moves.length >0){
-            return hand.playCard(new Random().nextInt(moves.length),pile);
+            Card played = hand.playCard(moves[new Random().nextInt(moves.length)],pile);
+            if(hand.size() == 0){
+                wonRound = true;
+            }
+            if(pile.getTopCard().getEffectiveColor() == CardColor.WILD){
+                pile.getTopCard().setEffectiveColor(CardColor.values()[new Random().nextInt(4)]);
+            }
+            return  played;
         }else {
             int penalty = pile.takePenalty();
             if(penalty == 0){
                 Card dealt = deck.deal(this);
                 if(dealt.playableOn(pile.getTopCard())){
-                    hand.playCard(dealt);
+                    hand.playCard(dealt,pile);
+                    return dealt;
                 }
             }
             while(penalty >0){
@@ -124,4 +145,11 @@ public class Player{
         return null;
     }
 
+    /**
+     * Gets the current hand size
+     * @return the size of the current hand
+     */
+    public int handSize(){
+        return hand.size();
+    }
 }
